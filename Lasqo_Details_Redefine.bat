@@ -14,17 +14,17 @@ echo     √ Authentication configured
 echo.
 
 echo [2/6] Creating necessary directories...
-mkdir models\diffusion_model 2>nul || echo     - diffusion_model directory already exists
-mkdir models\VAE 2>nul || echo     - VAE directory already exists
-mkdir models\CLIP 2>nul || echo     - CLIP directory already exists
+mkdir models\diffusion_modelss 2>nul || echo     - diffusion_models directory already exists
+mkdir models\vae 2>nul || echo     - vae directory already exists
+mkdir models\clip 2>nul || echo     - CLIP directory already exists
 mkdir models\loras 2>nul || echo     - loras directory already exists
 mkdir models\upscale_models 2>nul || echo     - upscale_models directory already exists
 echo     √ All directories created successfully
 echo.
 
 echo [3/6] Downloading FLUX.1 checkpoint model (this may take a while)...
-echo     - Target: models\diffusion_model\flux1-fill-dev.safetensors
-huggingface-cli download --token %HF_TOKEN% black-forest-labs/FLUX.1-Fill-dev flux1-fill-dev.safetensors --local-dir models\diffusion_model
+echo     - Target: models\diffusion_models\flux1-fill-dev.safetensors
+huggingface-cli download --token %HF_TOKEN% black-forest-labs/FLUX.1-Fill-dev flux1-fill-dev.safetensors --local-dir models\diffusion_models
 echo     √ FLUX.1 checkpoint download completed
 echo.
 
@@ -46,21 +46,21 @@ rmdir models\loras\portrait 2>nul
 echo     √ All ACE++ LoRA models downloaded successfully
 echo.
 
-echo [5/6] Downloading VAE model...
+echo [5/6] Downloading vae model...
 echo     - Creating FLUX1 subdirectory
-mkdir models\VAE\FLUX1 2>nul
-echo     - Downloading FLUX.1 VAE
-huggingface-cli download --token %HF_TOKEN% black-forest-labs/FLUX.1-schnell ae.safetensors --local-dir models\VAE\FLUX1 --local-dir-use-symlinks False
-echo     √ VAE model downloaded successfully
+mkdir models\vae\FLUX1 2>nul
+echo     - Downloading FLUX.1 vae
+huggingface-cli download --token %HF_TOKEN% black-forest-labs/FLUX.1-schnell ae.safetensors --local-dir models\vae\FLUX1 --local-dir-use-symlinks False
+echo     √ vae model downloaded successfully
 echo.
 
 echo [6/6] Downloading CLIP models...
 echo     - Downloading CLIP-L
-huggingface-cli download --token %HF_TOKEN% comfyanonymous/flux_text_encoders clip_l.safetensors --local-dir models\CLIP --local-dir-use-symlinks False
+huggingface-cli download --token %HF_TOKEN% comfyanonymous/flux_text_encoders clip_l.safetensors --local-dir models\clip --local-dir-use-symlinks False
 echo     - Creating T5 subdirectory
-mkdir models\CLIP\t5 2>nul
+mkdir models\clip\t5 2>nul
 echo     - Downloading T5 encoder
-huggingface-cli download --token %HF_TOKEN% Madespace/clip google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors --local-dir models\CLIP\t5 --local-dir-use-symlinks False
+huggingface-cli download --token %HF_TOKEN% Madespace/clip google_t5-v1_1-xxl_encoderonly-fp8_e4m3fn.safetensors --local-dir models\clip\t5 --local-dir-use-symlinks False
 echo     √ CLIP models downloaded successfully
 echo.
 
@@ -76,7 +76,7 @@ echo ===================================================================
 echo Models successfully downloaded:
 echo   - Checkpoint: flux1-fill-dev.safetensors
 echo   - LoRAs: 3 ACE++ LoRA models
-echo   - VAE: FLUX.1 ae.safetensors
+echo   - vae: FLUX.1 ae.safetensors
 echo   - CLIP: clip_l.safetensors and T5 encoder
 echo   - Upscaler: 4x-UltraSharp.pth
 echo.
